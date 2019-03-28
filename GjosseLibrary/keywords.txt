@@ -1,0 +1,32 @@
+#######################################
+# Syntax Coloring Map For Test
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+PID	KEYWORD1
+GjosseMotors	KEYWORD1
+GjosseEncoders	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+Compute	KEYWORD2
+SetOutputLimits KEYWORD2
+getCountsLeft	KEYWORD2
+getCountsRight	KEYWORD2
+setLeftSpeed	KEYWORD2
+setRightSpeed	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
