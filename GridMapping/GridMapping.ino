@@ -1,6 +1,17 @@
+#include <GjossePID.h>
+#include <FastGPIO.h>
 #include <GjosseLibrary.h>
+#include <GjosseEncoders.h>
+#include <GjosseMotors.h>
+
 #include <Wire.h>
 #include <LIS3MDL.h>
+
+#include <SPI.h>
+#include <MFRC522.h>
+
+#include <EEPROM.h>
+
 
 //--------Objects------------
 GjosseEncoders encoders;
@@ -18,10 +29,13 @@ int threshold = 500;
 int distancePin = A6;
 
 //RFID
+#define RST_PIN         20          
+#define SS_PIN          18  
+
+//MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 //Magnometer
 LIS3MDL mag;
-LIS3MDL::vector<int16_t> running_min = {32767, 32767, 32767}, running_max = {-32768, -32768, -32768};
 double scale_x, scale_y, scale_z;
 
 
@@ -53,6 +67,9 @@ PID anglePID(angleKp, angleKi, angleKd);
 
 //---------Variables---------
 
+//EEPROM
+int address = 5;
+
 //State
 int state = 0;
 
@@ -60,6 +77,7 @@ int state = 0;
 long printOldTime;
 long oldTimeEncoders;
 long oldTime;
+long groundTime;
 
 //Encoder 
 double distanceLeft;
@@ -68,8 +86,14 @@ float cm = (PI * 72) / 1440;
 double b = 145;
 
 //Pos
-double xPos = 0;
-double yPos = 0;
+double xPos = 900;
+double yPos = 900;
 
 //Distance
 double distance;
+double leftOut;
+double rightOut;
+
+//Edge
+bool xToggle = false;
+bool yToggle = false;
